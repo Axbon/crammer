@@ -1,8 +1,10 @@
 import fs from 'fs';
+import { toValueArray } from 'mapper';
+import { parse } from 'parser';
 import path from 'path';
 import pg, { Client } from 'pg';
 
-import { CramProps, Queryfn } from './types';
+import { CramProps, Queryfn, QueryParam } from './types';
 
 export const cram = ({ dir, adapter }: CramProps) => {
 	const filepath = path.join(process.cwd(), dir);
@@ -11,13 +13,13 @@ export const cram = ({ dir, adapter }: CramProps) => {
 		if (path.extname(nex) !== '.sql') {
 			throw new Error(`Found none-.sql file. bailing`);
 		}
-		const sql = fs.readFileSync(path.join(filepath, nex), 'utf-8');
+		const sqlText = fs.readFileSync(path.join(filepath, nex), 'utf-8');
 		const [qname] = nex.split('.sql');
 		return {
 			...cur,
-			[qname]: async (params) => {
-				//TODO map to postgres style params
-				return adapter.query('a', [1]);
+			[qname]: async (params: Record<string, QueryParam>) => {
+				const { sql, mapping } = parse(sqlText);
+				return adapter.query(sql, toValueArray(mapping, params));
 			},
 		};
 	}, {} as Record<string, Queryfn>);
