@@ -1,8 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-
-import { parse } from '../src/parser';
 import { toValueArray } from '../src/mapper';
+import { parse } from '../src/parser';
 
 test('nested block comments', () => {
 	const { sql } = parse(`
