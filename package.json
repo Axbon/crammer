@@ -1,13 +1,14 @@
 {
 	"name": "crammer",
 	"version": "1.0.0",
-	"description": "Loads directory of .sql files into promise-based functions for postgres.",
-	"main": "build/api.js",
+	"description": "Loads directory of .sql files into promise-based functions for node/postgres.",
+	"main": "build/crammer.js",
+	"types": "build/crammer.d.ts",
 	"author": "Axbon",
 	"license": "MIT",
 	"private": false,
 	"scripts": {
-		"release": "yarn publish && git push --tags",
+		"release": "yarn tsc && yarn publish && git push --tags",
 		"test": "jest"
 	},
 	"dependencies": {
@@ -26,5 +27,18 @@
 		"prettier": "^2.2.1",
 		"ts-jest": "^26.5.4",
 		"typescript": "^4.2.3"
-	}
+	},
+	"keywords": [
+		"postgres",
+		"sql",
+		"database",
+		"pg",
+		"postgresql",
+		"rdbms",
+		"queries",
+		"promises"
+	],
+	"files": [
+		"build"
+	]
 }
