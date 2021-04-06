@@ -5,10 +5,25 @@ export type CramProps = {
 	adapter: pg.Client;
 };
 
-export type QueryParam = number | string | boolean;
+interface RecordI<T> {
+	//Workaround because Record<> does not allow recursive type
+	//https://github.com/microsoft/TypeScript/pull/33050#issuecomment-543365074
+	[k: string]: T;
+}
+
+export type QueryParam =
+	| number
+	| string
+	| boolean
+	| null
+	//pg conerts dates to timestamp/timestamptz/date
+	| Date
+	//pg converts objects/arrays using JSON stringify, for postgres "json" types, thus they are valid
+	| RecordI<QueryParam>
+	| Array<QueryParam>;
 
 export type Queryfn = <T = any>(
-	params: Record<string, QueryParam>
+	params?: Record<string, QueryParam>
 ) => Promise<pg.QueryResult<T>>;
 
 export interface SqlParseResult {

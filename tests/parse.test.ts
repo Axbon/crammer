@@ -2,7 +2,7 @@ import { toValueArray } from '../src/mapper';
 import { parse } from '../src/parser';
 
 test('nested block comments', () => {
-	const { sql } = parse(`
+	const { sql, mapping } = parse(`
     SELECT is_nullable FROM information_schema.columns WHERE table_schema = 'public'
     /* Ignore :params in comments and also
       support multiline comments and nested
@@ -19,6 +19,8 @@ test('nested block comments', () => {
       $preserved : preserved " :not_touched "
     */
   `);
+
+	expect(mapping.length).toBe(0);
 });
 
 test('param mapping', () => {
