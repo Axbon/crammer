@@ -11,7 +11,7 @@ export const cram = ({ dir, adapter }: CramProps) => {
 	const files = fs.readdirSync(filepath);
 	const queries = files.reduce((cur, nex) => {
 		if (path.extname(nex) !== '.sql') {
-			throw new Error(`Found none-.sql file. bailing`);
+			return cur; //Skip none-.sql files
 		}
 		const sqlText = fs.readFileSync(path.join(filepath, nex), 'utf-8');
 		const [qname] = nex.split('.sql');
