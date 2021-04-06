@@ -1,6 +1,6 @@
 # Crammer
 
-Some of us strive to manage all of our sql code in pure .sql files. Crammers helps you do that.
+Some of us strive to manage all of our sql code in pure .sql files. _Crammer_ helps you do that.
 
 Literally _crams_ your precious sql queries into promise-based functions with typing support.
 Joke aside, it will scan a directory of your choice for .sql files. It will then load those
