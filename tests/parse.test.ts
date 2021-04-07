@@ -2,7 +2,7 @@ import { toValueArray } from '../src/mapper';
 import { parse } from '../src/parser';
 
 test('nested block comments', () => {
-	const { sql, mapping } = parse(`
+  const { sql, mapping } = parse(`
     SELECT is_nullable FROM information_schema.columns WHERE table_schema = 'public'
     /* Ignore :params in comments and also
       support multiline comments and nested
@@ -11,7 +11,7 @@ test('nested block comments', () => {
     */
   `);
 
-	expect(sql).toEqual(`
+  expect(sql).toEqual(`
     SELECT is_nullable FROM information_schema.columns WHERE table_schema = 'public'
     /* Ignore :params in comments and also
       support multiline comments and nested
@@ -20,11 +20,11 @@ test('nested block comments', () => {
     */
   `);
 
-	expect(mapping.length).toBe(0);
+  expect(mapping.length).toBe(0);
 });
 
 test('param mapping', () => {
-	const { sql, mapping } = parse(`
+  const { sql, mapping } = parse(`
       SELECT 
         is_nullable 
       FROM 
@@ -35,7 +35,7 @@ test('param mapping', () => {
         is_nullable = :isNullable
   `);
 
-	expect(sql).toEqual(`
+  expect(sql).toEqual(`
       SELECT 
         is_nullable 
       FROM 
@@ -45,6 +45,6 @@ test('param mapping', () => {
       AND
         is_nullable = $2
   `);
-	const params = { schemaName: 'public', isNullable: 'YES' };
-	expect(toValueArray(mapping, params)).toMatchObject(['public', 'YES']);
+  const params = { schemaName: 'public', isNullable: 'YES' };
+  expect(toValueArray(mapping, params)).toMatchObject(['public', 'YES']);
 });

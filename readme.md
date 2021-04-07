@@ -29,12 +29,12 @@ import pg, { Client } from 'pg';
 import { produce } from 'crammer';
 
 const client = new pg.Client({
-	//Use env vars for this, this is just as an example
-	user: 'postgres',
-	host: 'localhost',
-	database: 'yourdb',
-	password: 'yourpass',
-	port: 5432,
+  //Use env vars for this, this is just as an example
+  user: 'postgres',
+  host: 'localhost',
+  database: 'yourdb',
+  password: 'yourpass',
+  port: 5432,
 });
 
 /*
@@ -47,30 +47,30 @@ const client = new pg.Client({
 */
 
 const queries = produce({
-	//path originating from your projectRoot, ie where your package.json is
-	dir: 'path/to/sqlfiles',
-	adapter: client,
+  //path originating from your projectRoot, ie where your package.json is
+  dir: 'path/to/sqlfiles',
+  adapter: client,
 });
 
 const { getCustomer, addCustomer } = queries;
 
 const someApi = async () => {
-	const { rows } = await getCustomer();
+  const { rows } = await getCustomer();
 };
 
 const secondApi = async () => {
-	//Using named params
-	const { rows } = await getCustomer({ id: 1 });
+  //Using named params
+  const { rows } = await getCustomer({ id: 1 });
 };
 
 type Customer = {
-	name: string;
-	age: number;
+  name: string;
+  age: number;
 };
 
 const thirdApi = async () => {
-	//Using optional type for return type
-	const { rows } = await getCustomer<Customer>();
+  //Using optional type for return type
+  const { rows } = await getCustomer<Customer>();
 };
 ```
 
