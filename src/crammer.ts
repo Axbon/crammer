@@ -48,7 +48,7 @@ export const produce = (props: CramProps) => {
       '[CRAMMER] Supplied db adapter does not appear to be a valid pg client. See node "pg" package'
     );
   }
-  if (!fs.existsSync(path.join(process.cwd(), dir))) {
+  if (!fs.existsSync(dir)) {
     throw new Error(`[CRAMMER] Directory not found ${dir}`);
   }
   return cram(props);
