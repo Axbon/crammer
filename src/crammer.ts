@@ -22,7 +22,7 @@ const mem = (fn: (props: CramProps) => Record<string, Queryfn>) => {
 };
 
 const cram = mem(({ dir, adapter }: CramProps) => {
-  const filepath = path.join(process.cwd(), dir);
+  const filepath = dir;
   const files = fs.readdirSync(filepath);
   const queries = files.reduce((cur, nex) => {
     if (path.extname(nex) !== '.sql') {

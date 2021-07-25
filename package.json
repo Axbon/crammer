@@ -1,6 +1,6 @@
 {
   "name": "crammer",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Loads directory of .sql files into promise-based functions for node/postgres.",
   "main": "build/crammer.js",
   "types": "build/crammer.d.ts",

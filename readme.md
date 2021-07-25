@@ -2,8 +2,7 @@
 
 Some of us strive to manage all of our sql code in pure .sql files. _Crammer_ helps you do that.
 
-Literally _crams_ your precious sql queries into promise-based functions with typing support.
-Joke aside, it will scan a directory of your choice for .sql files. It will then load those
+Scan a directory of your choice for .sql files. It will then load those
 files, prepare promise-based functions for you available in an object.
 
 This enables you to manage all your .sql code in .sql files rather than having them inline
@@ -12,6 +11,11 @@ concatenating something or manipulating sql strings in a way that potentially op
 for sql injection type of attacks. Plus, it just looks better, more organized.
 
 Few dependencies, only pg and types
+
+### Version history
+
+- 1.0 - The path to the .sql dir was relative to process.cwd()
+- 2.0 - The path to the .sql dir has to be the full absolute path to the dir containing .sql files.
 
 ### Important
 
@@ -47,7 +51,6 @@ const client = new pg.Client({
 */
 
 const queries = produce({
-  //path originating from your projectRoot, ie where your package.json is
   dir: 'path/to/sqlfiles',
   adapter: client,
 });
