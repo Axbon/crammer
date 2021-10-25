@@ -1,8 +1,8 @@
-import pg from 'pg';
+import pg, { PoolClient, Client } from 'pg';
 
 export type CramProps = {
-  dir: string;
-  adapter: pg.Client;
+  dir: string | string[];
+  adapter: Client | PoolClient;
 };
 
 interface RecordI<T> {
@@ -25,6 +25,13 @@ export type QueryParam =
 export type Queryfn = <T = any>(
   params?: Record<string, QueryParam>
 ) => Promise<pg.QueryResult<T>>;
+
+export type BakedQueryFn = (
+  params?: Record<string, QueryParam>
+) => {
+  params?: Array<QueryParam>;
+  sql: string;
+};
 
 export interface SqlParseResult {
   sql: string;
